@@ -32,7 +32,6 @@ Redirect/
 │       └── routes/    / (특가) · /r/{code} (예약 이동 — 짧은 링크)
 ├── scripts/
 │   └── fake_prices.py 가격 추이 화면 확인용 가짜 가격 기록 넣기 / --clear 로 지우기
-├── DESIGN.md          무엇을 남기고 버릴지 설계 (화면은 Rockpin/DESIGN.md 를 따른다)
 ├── .env.example       환경 변수 목록 → .env 로 복사해 채운다
 ├── .env               록핀 키 등 (git 제외)
 └── proxies.txt        수집용 프록시 한 줄에 하나 (git 제외, 없으면 프록시 없이)
