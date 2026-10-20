@@ -7,9 +7,6 @@ proxies.txt
 *.db-shm
 *.har
 
-# 수집기 — 올리지 않는다
-update.py
-
 # 파이썬
 .venv/
 __pycache__/
