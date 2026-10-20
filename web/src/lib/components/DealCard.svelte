@@ -5,6 +5,7 @@
 <script lang="ts">
 	import { airlineLogo, airlineName, cityPhoto, day, duration, linkHref, nights, placeName, stops, won } from '#lib/format.ts';
 	import type { Deal } from '#lib/types.ts';
+	import Logo from './Logo.svelte';
 	import SellerLogo from './SellerLogo.svelte';
 
 	let {
@@ -49,13 +50,8 @@
 				onerror={() => (broken = true)}
 			/>
 		{:else}
-			<!-- 네이버가 도시 사진을 주지 않는 곳 (소도시 몇십 곳) — 국기와 이름으로 자리를 채운다 -->
-			<span class="placeholder">
-				{#if deal.country_code}
-					<img class="big-flag" src="/flags/{deal.country_code.toLowerCase()}.svg" alt="" width="40" height="30" onerror={(e) => e.currentTarget.remove()} />
-				{/if}
-				<span>{deal.destination_name}</span>
-			</span>
+			<!-- 네이버가 도시 사진을 주지 않는 곳 (소도시 몇십 곳) — 록핀 로고로 자리를 채운다 -->
+			<span class="brand"><Logo /></span>
 		{/if}
 	</div>
 
@@ -152,26 +148,10 @@
 		transform: scale(1.04);
 	}
 
-	.placeholder {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		gap: 10px;
-		color: var(--sub);
-		font-size: 16px;
-		font-weight: 700;
+	.brand {
+		width: 96px;
+		color: var(--line);
 	}
-
-	.photo .placeholder .big-flag {
-		position: static;
-		width: 40px;
-		height: 30px;
-		border-radius: 3px;
-		opacity: 1;
-		object-fit: cover;
-		box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.06);
-	}
-
 
 	.body {
 		flex: 1;
