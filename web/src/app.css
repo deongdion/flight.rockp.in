@@ -1,0 +1,337 @@
+/* 록핀 디자인 (Rockpin/DESIGN.md) — 흑백·회색 기본, 하늘색은 "선택됨"과 좋은 소식에만.
+   선 대신 옅은 회색 바탕과 여백으로 나눈다. */
+:root {
+	/* 회색 */
+	--sub: #60646c; /* 보조 글자 — 메타, 꺼진 메뉴 */
+	--muted: #9a9ea6; /* 흐린 글자 — 안내, 단위 */
+	--el: #f0f0f3; /* 요소 바탕 — 칩, 보조 버튼, 탭 묶음 */
+	--line: #e0e1e6; /* 꼭 필요한 선, 보조 버튼 hover */
+	--hover: #f7f7f9; /* 넓은 회색 면 — 바닥글, 빈 자리 */
+	/* 포인트(선택됨) — 하늘색 */
+	--pt: #2f98e4;
+	--ptBg: #e6f2fc;
+	--ptL: #c4e2f9;
+	--ptHover: #d6eafb;
+	/* 주 버튼 */
+	--ink: #1a1a1a;
+	--inkHover: #333;
+	/* 크기 */
+	--max: 1200px;
+	--gut: 20px;
+	--top: 56px;
+	--ease: cubic-bezier(0.3, 0.7, 0.2, 1);
+	--card-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05), 0 2px 8px rgba(0, 0, 0, 0.04);
+	--card-shadow-hover: 0 0 0 1px rgba(0, 0, 0, 0.05), 0 12px 28px rgba(0, 0, 0, 0.1);
+	--float-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+	--font-sans: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui,
+		'Malgun Gothic', sans-serif;
+	color-scheme: light;
+}
+
+@media (max-width: 640px) {
+	:root {
+		--gut: 16px;
+	}
+}
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	background: #fff;
+	color: #000;
+	font-family: var(--font-sans);
+	font-size: 14px;
+	font-weight: 500;
+	line-height: 1.5;
+	word-break: keep-all;
+	-webkit-font-smoothing: antialiased;
+	-webkit-tap-highlight-color: transparent;
+}
+
+a {
+	color: inherit;
+	text-decoration: none;
+}
+
+button,
+input,
+select {
+	font: inherit;
+	color: inherit;
+}
+
+button {
+	user-select: none;
+	-webkit-user-select: none;
+}
+
+:focus-visible {
+	outline: 2px solid var(--ink);
+	outline-offset: 2px;
+}
+
+.num {
+	font-variant-numeric: tabular-nums;
+}
+
+.sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	clip: rect(0 0 0 0);
+	white-space: nowrap;
+}
+
+/* 내용 폭 — 위 막대·필터·목록·바닥글 왼쪽 끝을 한 줄로 */
+.wrap {
+	max-width: var(--max);
+	margin: 0 auto;
+	padding: 0 var(--gut);
+}
+
+/* ── 아이콘 (core-flat 두 톤) ── */
+.ico {
+	--l: #c5c7cc;
+	--d: #6b6f76;
+	display: inline-flex;
+	flex: none;
+}
+
+.ico svg {
+	width: 16px;
+	height: 16px;
+}
+
+/* ── 버튼 ── */
+.btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 6px;
+	height: 38px;
+	padding: 0 16px;
+	border: 0;
+	border-radius: 11px;
+	background: var(--el);
+	color: #000;
+	font-size: 14px;
+	font-weight: 600;
+	white-space: nowrap;
+	cursor: pointer;
+	transition:
+		background 0.15s,
+		transform 0.1s;
+}
+
+.btn:hover {
+	background: var(--line);
+}
+
+.btn:active {
+	transform: scale(0.97);
+}
+
+.btn.primary {
+	background: var(--ink);
+	color: #fff;
+}
+
+.btn.primary:hover {
+	background: var(--inkHover);
+}
+
+.btn.lg {
+	height: 48px;
+	border-radius: 14px;
+	font-size: 15px;
+}
+
+.btn.lg:active {
+	transform: scale(0.98);
+}
+
+.btn:disabled {
+	opacity: 0.5;
+	cursor: default;
+	transform: none;
+}
+
+/* ── 칩 (필터) ── */
+.chip {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	height: 36px;
+	padding: 0 14px 0 12px;
+	border: 0;
+	border-radius: 999px;
+	background: var(--el);
+	color: #000;
+	font-size: 14px;
+	font-weight: 500;
+	white-space: nowrap;
+	cursor: pointer;
+	transition:
+		background 0.15s,
+		transform 0.1s;
+}
+
+.chip:hover {
+	background: var(--line);
+}
+
+.chip:active {
+	transform: scale(0.97);
+}
+
+.chip[data-on] {
+	background: var(--ptBg);
+	color: var(--pt);
+	font-weight: 600;
+}
+
+.chip[data-on]:hover {
+	background: var(--ptHover);
+}
+
+.chip[data-on] .ico {
+	--l: var(--ptL);
+	--d: var(--pt);
+}
+
+/* 작은 선 표시 (▾ × › ✓) — 직접 그린 선 */
+.caret {
+	width: 10px;
+	height: 10px;
+	fill: none;
+	stroke: currentColor;
+	stroke-width: 1.8;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+	flex: none;
+}
+
+/* ── 탭 묶음 (둘 중 하나) — 하늘색 없이 ── */
+.seg {
+	display: inline-flex;
+	padding: 3px;
+	border-radius: 999px;
+	background: var(--el);
+}
+
+.seg button {
+	display: inline-flex;
+	align-items: center;
+	height: 30px;
+	padding: 0 14px;
+	border: 0;
+	border-radius: 999px;
+	background: none;
+	color: var(--sub);
+	font-size: 14px;
+	font-weight: 600;
+	cursor: pointer;
+	transition: background 0.15s;
+}
+
+.seg button[aria-checked='true'] {
+	background: #fff;
+	color: #000;
+}
+
+/* ── 꼬리표 ── */
+.tags {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 4px;
+	min-height: 22px;
+}
+
+.tag {
+	padding: 3px 8px;
+	border-radius: 7px;
+	background: var(--ptBg);
+	color: var(--pt);
+	font-size: 12px;
+	font-weight: 600;
+	line-height: 16px;
+}
+
+.tag.calm {
+	background: none;
+	box-shadow: inset 0 0 0 1px var(--line);
+	color: var(--sub);
+	font-weight: 500;
+}
+
+/* ── 빈 화면 ── */
+.empty {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 6px;
+	padding: 64px 0;
+	color: var(--sub);
+	font-size: 13px;
+	text-align: center;
+}
+
+.empty .ico svg {
+	width: 40px;
+	height: 40px;
+}
+
+.empty strong {
+	margin-top: 8px;
+	color: #000;
+	font-size: 15px;
+	font-weight: 600;
+}
+
+.empty .actions {
+	display: flex;
+	gap: 6px;
+	margin-top: 10px;
+}
+
+code {
+	font-family: ui-monospace, Consolas, monospace;
+	font-size: 12px;
+	padding: 1px 6px;
+	border-radius: 6px;
+	background: var(--el);
+}
+
+/* ── 스켈레톤 ── */
+.sk {
+	border-radius: 8px;
+	background: #eceef1 linear-gradient(90deg, #eceef1 0, #f6f7f9 40%, #eceef1 80%) no-repeat;
+	background-size: 200% 100%;
+	animation: shimmer 1.4s linear infinite;
+}
+
+@keyframes shimmer {
+	from {
+		background-position: 100% 0;
+	}
+	to {
+		background-position: -100% 0;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.001ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.001ms !important;
+	}
+}

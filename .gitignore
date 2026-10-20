@@ -1,0 +1,21 @@
+# 비밀값·로컬 데이터 — 올리지 않는다
+.env
+proxies.txt
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+*.har
+
+# 수집기 — 올리지 않는다
+update.py
+
+# 파이썬
+.venv/
+__pycache__/
+
+# 화면 (web/.gitignore 에 node_modules·빌드 결과)
+
+# OS
+.DS_Store
+Thumbs.db
